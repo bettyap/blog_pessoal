@@ -23,7 +23,6 @@ public class UsuarioLogin {
 	
 
 	public UsuarioLogin() {
-		super();
 	}
 
 
