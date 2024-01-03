@@ -42,28 +42,26 @@ public class UsuarioService {
 	}
 	
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
-
-		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
-
+		
+		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			Optional<Usuario> buscaUsuario = usuarioRepository
 					.findByUsuario(usuario.getUsuario());
-
+			
 			if ((buscaUsuario.isPresent()) && 
 					(buscaUsuario.get().getId() != usuario.getId()))
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
-
+			
 			if(usuario.getFoto().isBlank())
-				usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
+		         usuario.setFoto("https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1");
 			
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
 			return Optional.ofNullable(usuarioRepository.save(usuario));
-
 		}
-
+		
 		return Optional.empty();
+	
 	}
-
 	
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
         
